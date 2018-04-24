@@ -131,7 +131,7 @@ class TaxiOOMDP(OOMDP):
         # Make terminal.
         if taxi_helpers.is_taxi_terminal_state(next_state):
             next_state.set_terminal(True)
-        
+
         # All OOMDP states must be updated.
         next_state.update()
 
@@ -144,7 +144,7 @@ class TaxiOOMDP(OOMDP):
         from ...utils.mdp_visualizer import visualize_agent
         from taxi_visualizer import _draw_state
         visualize_agent(self, agent, _draw_state)
-        raw_input("Press anything to quit ")
+        input("Press anything to quit ")
         sys.exit(1)
 
     # ----------------------------

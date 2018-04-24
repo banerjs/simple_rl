@@ -91,7 +91,7 @@ class Experiment(object):
             agent_name_ls = [agent_name for agent_name in self.agents.keys()]
         else:
             agent_name_ls = [a.get_name() for a in self.agents]
-            
+
         chart_utils.make_plots(self.exp_directory,
                                 agent_name_ls,
                                 episodic=self.is_episodic,

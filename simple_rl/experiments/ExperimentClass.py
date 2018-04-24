@@ -82,7 +82,7 @@ class Experiment(object):
                 os.remove(os.path.join(self.exp_directory, "optimal") + ".csv")
         self.write_exp_info_to_file()
 
-    def make_plots(self, open_plot=True):
+    def make_plots(self, open_plot=False):
         '''
         Summary:
             Makes plots for the current experiment.
@@ -106,7 +106,7 @@ class Experiment(object):
 
     def get_agent_avg_cumulative_rew(self, agent):
         result_file = open(os.path.join(self.exp_directory, str(agent)) + ".csv", "r")
-        
+
         total = 0
         num_lines = 0
         for line in result_file.readlines():

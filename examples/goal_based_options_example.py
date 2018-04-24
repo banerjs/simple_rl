@@ -10,7 +10,7 @@ from simple_rl.agents import QLearningAgent, RandomAgent
 from simple_rl.run_experiments import run_agents_lifelong
 from simple_rl.abstraction import AbstractionWrapper, aa_helpers, ActionAbstraction
 
-def main(open_plot=True):
+def main(open_plot=False):
     # Setup MDP, Agents.
     mdp_distr = make_mdp.make_mdp_distr(mdp_class="four_room")
     ql_agent = QLearningAgent(actions=mdp_distr.get_actions())

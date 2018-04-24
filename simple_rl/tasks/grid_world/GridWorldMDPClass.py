@@ -181,24 +181,28 @@ class GridWorldMDP(MDP):
 
         mdpv.visualize_policy(self, policy, _draw_state, action_char_dict)
         input("Press anything to quit ")
+        mdpv.quit()
 
     def visualize_agent(self, agent):
         from simple_rl.utils import mdp_visualizer as mdpv
         from .grid_visualizer import _draw_state
         mdpv.visualize_agent(self, agent, _draw_state)
         input("Press anything to quit ")
+        mdpv.quit()
 
     def visualize_value(self):
         from simple_rl.utils import mdp_visualizer as mdpv
         from .grid_visualizer import _draw_state
         mdpv.visualize_value(self, _draw_state)
         input("Press anything to quit ")
+        mdpv.quit()
 
     def visualize_learning(self, agent):
         from simple_rl.utils import mdp_visualizer as mdpv
         from .grid_visualizer import _draw_state
         mdpv.visualize_learning(self, agent, _draw_state)
         input("Press anything to quit ")
+        mdpv.quit()
 
 def _error_check(state, action):
     '''

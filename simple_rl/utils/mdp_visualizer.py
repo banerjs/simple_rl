@@ -235,8 +235,8 @@ def visualize_agent(mdp, agent, draw_state, cur_state=None, scr_width=720, scr_h
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 # Quit.
-                pygame.quit()
-                sys.exit()
+                pygame.display.quit()
+                # sys.exit()
             if event.type == KEYDOWN and event.key == K_SPACE:
                 # Move agent.
                 action = agent.act(cur_state, reward)
@@ -267,12 +267,16 @@ def _vis_init(screen, mdp, draw_state, cur_state, agent=None, value=False, score
     _draw_title_text(mdp, screen)
     if agent is not None:
         _draw_agent_text(agent, screen)
-    
+
     if score != -1:
         _draw_lower_left_text("Score: " + str(score), screen)
     agent_shape = draw_state(screen, mdp, cur_state, draw_statics=True)
 
     return agent_shape
+
+def quit(screen=None):
+    """Quit pygame"""
+    pygame.display.quit()
 
 def convert_x_y_to_grid_cell(x, y, scr_width, scr_height, mdp_width, mdp_height):
     '''
@@ -287,7 +291,7 @@ def convert_x_y_to_grid_cell(x, y, scr_width, scr_height, mdp_width, mdp_height)
     height_buffer = 30 + (scr_height / 10.0) # Add 30 for title.
 
     lower_left_x, lower_left_y = x - width_buffer, scr_height - y - height_buffer
-    
+
     cell_width = (scr_width - width_buffer * 2) / mdp_width
     cell_height = (scr_height - height_buffer * 2) / mdp_height
 

@@ -30,7 +30,7 @@ from simple_rl.experiments import Experiment
 from simple_rl.mdp import MarkovGameMDP
 from simple_rl.agents import QLearningAgent, FixedPolicyAgent
 
-def play_markov_game(agent_ls, markov_game_mdp, instances=10, episodes=100, steps=30, verbose=False, open_plot=True):
+def play_markov_game(agent_ls, markov_game_mdp, instances=10, episodes=100, steps=30, verbose=False, open_plot=False):
     '''
     Args:
         agent_list (list of Agents): See agents/AgentClass.py (and friends).
@@ -122,7 +122,7 @@ def run_agents_lifelong(agents,
                             episodes=1,
                             steps=100,
                             clear_old_results=True,
-                            open_plot=True,
+                            open_plot=False,
                             verbose=False,
                             track_disc_reward=False,
                             reset_at_terminal=False,
@@ -217,7 +217,7 @@ def run_agents_on_mdp(agents,
                         clear_old_results=True,
                         rew_step_count=1,
                         track_disc_reward=False,
-                        open_plot=True,
+                        open_plot=False,
                         verbose=False,
                         reset_at_terminal=False,
                         cumulative_plot=True):
@@ -268,7 +268,7 @@ def run_agents_on_mdp(agents,
             print("  Instance " + str(instance) + " of " + str(instances) + ".")
             sys.stdout.flush()
             run_single_agent_on_mdp(agent, mdp, episodes, steps, experiment, verbose, track_disc_reward, reset_at_terminal=reset_at_terminal)
-            
+
             # Reset the agent.
             agent.reset()
             mdp.end_of_instance()
@@ -454,7 +454,7 @@ def main():
 
     # Setup agents.
     from simple_rl.agents import RandomAgent, QLearningAgent
-    
+
     random_agent = RandomAgent(actions)
     qlearner_agent = QLearningAgent(actions, gamma=gamma, explore="uniform")
     agents = [qlearner_agent, random_agent]

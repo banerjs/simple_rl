@@ -1,5 +1,5 @@
 '''
-TaxiMDPClass.py: Contains the TaxiMDP class. 
+TaxiMDPClass.py: Contains the TaxiMDP class.
 
 From:
     Dietterich, Thomas G. "Hierarchical reinforcement learning with the
@@ -145,7 +145,7 @@ class TaxiOOMDP(OOMDP):
         from taxi_visualizer import _draw_state
         visualize_agent(self, agent, _draw_state)
         input("Press anything to quit ")
-        sys.exit(1)
+        # sys.exit(1)
 
     # ----------------------------
     # -- Action Implementations --

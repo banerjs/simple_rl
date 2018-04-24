@@ -62,7 +62,7 @@ def make_mdp_distr(mdp_class="grid", grid_dim=9, horizon=0, step_cost=0, gamma=0
     height, width = grid_dim, grid_dim
 
     # Define goal locations.
-        
+
     # Corridor.
     corr_width = 20
     corr_goal_magnitude = 1 #random.randint(1, 5)
@@ -116,7 +116,7 @@ def make_mdp_distr(mdp_class="grid", grid_dim=9, horizon=0, step_cost=0, gamma=0
 
         new_mdp.set_step_cost(step_cost)
         new_mdp.set_gamma(gamma)
-        
+
         mdp_dist_dict[new_mdp] = mdp_prob
 
     return MDPDistribution(mdp_dist_dict, horizon=horizon)

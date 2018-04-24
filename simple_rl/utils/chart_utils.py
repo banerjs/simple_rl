@@ -23,7 +23,7 @@ import math
 import sys
 import os
 import matplotlib
-matplotlib.use('TkAgg')
+# matplotlib.use('TkAgg')
 import matplotlib.pyplot as pyplot
 import numpy as np
 import subprocess
@@ -97,7 +97,7 @@ def average_data(data, cumulative=False):
             avged = all_instances_sum / num_instances
         except TypeError:
             raise ValueError("(simple_rl) Plotting Error: an algorithm was run with inconsistent parameters (likely inconsistent number of Episodes/Instances. Try clearing old data).")
-        
+
         if cumulative:
             # If we're summing over episodes.
             temp = []
@@ -170,7 +170,7 @@ def _format_title(plot_title):
 
     return plot_title_final
 
-def plot(results, experiment_dir, agents, conf_intervals=[], use_cost=False, cumulative=False, episodic=True, open_plot=True, track_disc_reward=False):
+def plot(results, experiment_dir, agents, conf_intervals=[], use_cost=False, cumulative=False, episodic=True, open_plot=False, track_disc_reward=False):
     '''
     Args:
         results (list of lists): each element is itself the reward from an episode for an algorithm.
@@ -179,7 +179,7 @@ def plot(results, experiment_dir, agents, conf_intervals=[], use_cost=False, cum
         conf_intervals (list of floats) [optional]: confidence intervals to display with the chart.
         use_cost (bool) [optional]: If true, plots are in terms of cost. Otherwise, plots are in terms of reward.
         cumulative (bool) [optional]: If true, plots are cumulative cost/reward.
-        episodic (bool): If true, labels the x-axis "Episode Number". Otherwise, "Step Number". 
+        episodic (bool): If true, labels the x-axis "Episode Number". Otherwise, "Step Number".
         open_plot (bool)
         track_disc_reward (bool): If true, plots discounted reward.
 
@@ -231,7 +231,7 @@ def plot(results, experiment_dir, agents, conf_intervals=[], use_cost=False, cum
         pyplot.plot(x_axis, y_axis, color=series_color, marker=series_marker, markevery=marker_every, label=agent_name)
         pyplot.legend()
     print()
-    
+
     # Configure plot naming information.
     unit = "Cost" if use_cost else "Reward"
     plot_label = "Cumulative" if cumulative else "Average"
@@ -249,7 +249,7 @@ def plot(results, experiment_dir, agents, conf_intervals=[], use_cost=False, cum
         exp_name = exp_dir_split_list[0]
 
     experiment_dir = experiment_dir + "/" if experiment_dir[-1] != "/" else experiment_dir
-    plot_file_name = experiment_dir + plot_label.lower() + "_" + unit.lower() + ".pdf"
+    plot_file_name = experiment_dir + plot_label.lower() + "_" + unit.lower() + ".png"
     plot_title = CUSTOM_TITLE if CUSTOM_TITLE is not None else plot_label + " " + disc_ext + unit + ": " + exp_name
     if CUSTOM_TITLE is None:
         plot_title = _format_title(plot_title)
@@ -264,8 +264,9 @@ def plot(results, experiment_dir, agents, conf_intervals=[], use_cost=False, cum
     pyplot.grid(True)
 
     # Save the plot.
-    pyplot.savefig(plot_file_name, format="pdf")
-    
+    pyplot.savefig(plot_file_name, format="png")
+    pyplot.show()
+
     if open_plot:
         # Open it.
         open_prefix = "gnome-" if sys.platform == "linux" or sys.platform == "linux2" else ""
@@ -275,19 +276,19 @@ def plot(results, experiment_dir, agents, conf_intervals=[], use_cost=False, cum
     pyplot.cla()
     pyplot.close()
 
-def make_plots(experiment_dir, experiment_agents, cumulative=True, use_cost=False, episodic=True, open_plot=True, track_disc_reward=False):
+def make_plots(experiment_dir, experiment_agents, cumulative=True, use_cost=False, episodic=True, open_plot=False, track_disc_reward=False):
     '''
     Args:
         experiment_dir (str): path to results.
         experiment_agents (list): agent names (looks for "<agent-name>.csv").
         cumulative (bool): If true, plots show cumulative trr
         use_cost (bool): If true, plots are in terms of cost. Otherwise, plots are in terms of reward.
-        episodic (bool): If true, labels the x-axis "Episode Number". Otherwise, "Step Number". 
+        episodic (bool): If true, labels the x-axis "Episode Number". Otherwise, "Step Number".
         track_disc_reward (bool): If true, plots discounted reward (changes plot title, too).
 
     Summary:
         Creates plots for all agents run under the experiment.
-        Stores the plot in results/<experiment_name>/<plot_name>.pdf
+        Stores the plot in results/<experiment_name>/<plot_name>.png
     '''
 
     # experiment_agents.sort()
@@ -421,7 +422,7 @@ def main():
     Summary:
         For manual plotting.
     '''
-    
+
     # Parse args.
     args = parse_args()
 

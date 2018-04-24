@@ -6,9 +6,9 @@ import numpy as np
 from simple_rl.planning import ValueIteration
 from simple_rl.mdp import MDP
 from simple_rl.mdp import MDPDistribution
-from RewardFuncClass import RewardFunc
-from TransitionFuncClass import TransitionFunc
-from HierarchyStateClass import HierarchyState
+from .RewardFuncClass import RewardFunc
+from .TransitionFuncClass import TransitionFunc
+from .HierarchyStateClass import HierarchyState
 
 # ------------------
 # -- Single Level --

@@ -3,7 +3,7 @@ from __future__ import print_function
 import random
 
 # Other imports.
-from PolicyClass import Policy
+from .PolicyClass import Policy
 from collections import defaultdict
 
 class PolicyFromDict(Policy):

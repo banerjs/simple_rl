@@ -1,6 +1,6 @@
 # Python imports.
 import random
-import Queue
+# import Queue
 from collections import defaultdict
 
 # Other imports.

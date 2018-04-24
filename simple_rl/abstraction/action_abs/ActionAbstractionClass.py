@@ -4,8 +4,8 @@ from collections import defaultdict
 import random
 
 # Other imports.
-from OptionClass import Option
-from PredicateClass import Predicate
+from .OptionClass import Option
+from .PredicateClass import Predicate
 
 class ActionAbstraction(object):
 

@@ -31,7 +31,6 @@ def _draw_state(screen,
     cell_height = (scr_height - height_buffer * 2) / taxi_oomdp.height
     objects = state.get_objects()
     agent_x, agent_y = objects["agent"][0]["x"], objects["agent"][0]["y"]
-  
 
     if agent_shape is not None:
         # Clear the old shape.
@@ -54,7 +53,6 @@ def _draw_state(screen,
         top_left_point = width_buffer + cell_width*(pass_x - 1) + in_taxi_size , height_buffer + cell_height*(taxi_oomdp.height - pass_y) + in_taxi_size
         pygame.draw.rect(screen, color_ls[-i-1], top_left_point + (cell_width - 2*in_taxi_size, cell_height - 2*in_taxi_size), 0)
 
-    
     # Statics
     if draw_statics:
         # For each row:

@@ -142,7 +142,7 @@ class TaxiOOMDP(OOMDP):
 
     def visualize_agent(self, agent):
         from ...utils.mdp_visualizer import visualize_agent
-        from taxi_visualizer import _draw_state
+        from .taxi_visualizer import _draw_state
         visualize_agent(self, agent, _draw_state)
         input("Press anything to quit ")
         # sys.exit(1)
@@ -190,7 +190,7 @@ class TaxiOOMDP(OOMDP):
 
         # update = False
         if agent.get_attribute("has_passenger") == 0:
-            
+
             # If the agent does not have a passenger.
             for i, passenger in enumerate(next_state.get_objects_of_class("passenger")):
                 if agent.get_attribute("x") == passenger.get_attribute("x") and agent.get_attribute("y") == passenger.get_attribute("y"):
@@ -199,7 +199,7 @@ class TaxiOOMDP(OOMDP):
                     passenger.set_attribute("in_taxi", 1)
 
         return next_state
-                    
+
     def agent_dropoff(self, state):
         '''
         Args:

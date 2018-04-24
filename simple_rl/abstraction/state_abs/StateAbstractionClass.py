@@ -62,7 +62,7 @@ class StateAbstraction(object):
             (list): Contains all ground states in the cluster.
         '''
         return [s_g for s_g in self.get_ground_states() if self.phi(s_g) == abs_state]
-    
+
     def get_lower_states_in_abs_state(self, abs_state):
         '''
         Args:

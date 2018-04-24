@@ -26,7 +26,7 @@ class GymMDP(MDP):
         self.env = gym.make(env_name)
         self.render = render
         MDP.__init__(self, range(self.env.action_space.n), self._transition_func, self._reward_func, init_state=GymState(self.env.reset()))
-    
+
     def _reward_func(self, state, action):
         '''
         Args:

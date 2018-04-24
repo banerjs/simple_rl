@@ -31,7 +31,7 @@ class QLearningAgent(Agent):
         self.step_number = 0
         self.anneal = anneal
         self.default_q = 0 #1 / (1 - self.gamma)
-        
+
         # Q Function:
         # Key: state
         # Val: dict
@@ -63,7 +63,7 @@ class QLearningAgent(Agent):
         '''
         if learning:
             self.update(self.prev_state, self.prev_action, reward, state)
-        
+
         if self.explore == "softmax":
             # Softmax exploration
             action = self.soft_max_policy(state)

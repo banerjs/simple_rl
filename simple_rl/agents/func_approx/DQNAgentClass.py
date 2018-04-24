@@ -74,13 +74,12 @@ class DQNAgent(Agent):
         if random.random() < self.epsilon:
             action =  np.random.choice(self.num_actions) # NOTE:  Again assumes actions encoded as integers
         else:
-            img = state.to_rgb(self.x_dim, self.y_dim)
-            action = self.mainQN.get_best_action(self.sess, img)[0]
+            action = self.mainQN.get_best_action(self.sess, state)[0]
 
         if not (self.prev_state is None) and not (self.prev_action is None):
-            self.experience_buffer.add((self.prev_state, self.prev_action, reward, state.to_rgb(self.x_dim, self.y_dim), state.is_terminal()))
+            self.experience_buffer.add((self.prev_state, self.prev_action, reward, state, state.is_terminal()))
 
-        self.prev_state, self.prev_action = state.to_rgb(self.x_dim, self.y_dim), action
+        self.prev_state, self.prev_action = state, action
 
         if self.epsilon > self.epsilon_end:
             self.epsilon -= self.epsilon_decay
@@ -133,7 +132,13 @@ class QNetwork():
         self.x_dim, self.y_dim = x_dim, y_dim
         self.num_channels = num_channels
 
-        self.image = tf.placeholder(tf.float32, shape=[None, self.x_dim, self.y_dim, self.num_channels], name='image')
+        image_shape = [None, self.x_dim]
+        if self.y_dim > 1:
+            image_shape.append(self.y_dim)
+        if self.num_channels > 1:
+            image_shape.append(self.num_channels)
+
+        self.image = tf.placeholder(tf.float32, shape=image_shape, name='image')
         self.targetQ = tf.placeholder(tf.float32, shape=[None], name='targetQ')
 
         self.actions = tf.placeholder(tf.int32, shape=[None], name='actions')

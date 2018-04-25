@@ -31,21 +31,34 @@ class OOMDPState(State):
     def get_first_obj_of_class(self, obj_class):
         return self.get_objects_of_class(obj_class)[0]
 
+    def get_feature_indices(self):
+        return self.feature_indices
+
     def update(self):
         '''
         Summary:
             Turn object attributes into a feature list.
         '''
+        self.object_keys = sorted(self.objects.keys())
+        self.feature_indices = {}
+
         state_vec = []
-        for obj_class in self.objects.keys():
+        feature_index = -1
+        for obj_class in self.object_keys:
+
             for obj in self.objects[obj_class]:
                 state_vec += obj.get_obj_state()
+
+                # Set the position of the different objects
+                for attr in obj.get_attribute_keys():
+                    feature_index += 1
+                    self.feature_indices["{}-{}".format(obj_class, attr)] = feature_index
 
         self.data = tuple(state_vec)
 
     def __str__(self):
         result = ""
-        for obj_class in self.objects.keys():
+        for obj_class in self.object_keys:
             for obj in self.objects[obj_class]:
                 result += "\t" + str(obj)
             result += "\n"

@@ -302,8 +302,8 @@ def run_single_agent_on_mdp(agent, mdp, episodes, steps, experiment=None, verbos
 
         if verbose:
             # Print episode numbers out nicely.
-            sys.stdout.write("\tEpisode %s of %s" % (episode, episodes))
-            sys.stdout.write("\b" * len("\tEpisode %s of %s" % (episode, episodes)))
+            sys.stdout.write("Episode %s of %s" % (episode, episodes))
+            # sys.stdout.write("\b" * len("\tEpisode %s of %s" % (episode, episodes)))
             sys.stdout.flush()
 
         # Compute initial state/reward.
@@ -313,8 +313,8 @@ def run_single_agent_on_mdp(agent, mdp, episodes, steps, experiment=None, verbos
 
         # Extra printing if verbose.
         if verbose:
-            print()
-            sys.stdout.flush()
+            # print()
+            # sys.stdout.flush()
             prog_bar_len = _make_step_progress_bar()
 
         for step in range(1, steps + 1):
@@ -368,7 +368,8 @@ def run_single_agent_on_mdp(agent, mdp, episodes, steps, experiment=None, verbos
         agent.end_of_episode()
 
         if verbose:
-            print("\n")
+            print()
+            # print("\n")
 
     # Process that learning instance's info at end of learning.
     if experiment is not None:
@@ -385,9 +386,9 @@ def _make_step_progress_bar():
         (int): Length of the progress bar (in characters).
     '''
     progress_bar_width = 20
-    sys.stdout.write("\t\t[%s]" % (" " * progress_bar_width))
+    sys.stdout.write("\t")
     sys.stdout.flush()
-    sys.stdout.write("\b" * (progress_bar_width+1)) # return to start of line, after '['
+    # sys.stdout.write("\b" * (progress_bar_width+1)) # return to start of line, after '['
     return progress_bar_width
 
 def _increment_bar():

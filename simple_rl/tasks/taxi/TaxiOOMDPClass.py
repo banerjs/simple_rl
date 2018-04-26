@@ -19,6 +19,7 @@ from simple_rl.mdp.oomdp.OOMDPClass import OOMDP
 from simple_rl.mdp.oomdp.OOMDPObjectClass import OOMDPObject
 from simple_rl.tasks.taxi.TaxiStateClass import TaxiState
 from simple_rl.tasks.taxi import taxi_helpers
+from simple_rl import utils
 
 class TaxiOOMDP(OOMDP):
     ''' Class for a Taxi OO-MDP '''
@@ -145,7 +146,7 @@ class TaxiOOMDP(OOMDP):
         from .taxi_visualizer import _draw_state
         visualize_agent(self, agent, _draw_state)
         input("Press anything to quit ")
-        # sys.exit(1)
+        utils.mdp_visualizer.quit()
 
     # ----------------------------
     # -- Action Implementations --

@@ -44,8 +44,23 @@ def is_taxi_terminal_state(state):
     Returns:
         (bool): True iff all passengers at at their destinations, not in the taxi.
     '''
+    agent = state.get_first_obj_of_class("agent")
+
+    # Check to see if taxi with passenger
+    if agent.get_attribute("has_passenger"):
+        return False
+
+    agent_at_passenger = False
     for p in state.get_objects_of_class("passenger"):
-        if p.get_attribute("in_taxi") == 1 or p.get_attribute("x") != p.get_attribute("dest_x") or \
-            p.get_attribute("y") != p.get_attribute("dest_y"):
+
+        # Check to see that all passengers are at destination
+        if p.get_attribute("x") != p.get_attribute("dest_x") or p.get_attribute("y") != p.get_attribute("dest_y"):
             return False
-    return True
+
+        # Check if taxi is with atleast one of them
+        if not agent_at_passenger \
+        and p.get_attribute("x") == agent.get_attribute("x") \
+        and p.get_attribute("y") == agent.get_attribute("y"):
+            agent_at_passenger = True
+
+    return agent_at_passenger

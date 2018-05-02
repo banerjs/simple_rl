@@ -79,18 +79,12 @@ class TaxiOOMDP(OOMDP):
         '''
         _error_check(state, action)
 
-        # Stacked if statements for efficiency.
-        if action == "dropoff":
-            # If agent is dropping off.
-            agent = state.get_first_obj_of_class("agent")
+        # Use the terminal state check
+        if taxi_helpers.is_taxi_terminal_state(state):
+            return 1 - self.step_cost
+        else:
+            return 0 - self.step_cost
 
-            # Check to see if all passengers at destination.
-            if agent.get_attribute("has_passenger"):
-                for p in state.get_objects_of_class("passenger"):
-                    if p.get_attribute("x") != p.get_attribute("dest_x") or p.get_attribute("y") != p.get_attribute("dest_y"):
-                        return 0 - self.step_cost
-                return 1 - self.step_cost
-        return 0 - self.step_cost
 
     def _taxi_transition_func(self, state, action):
         '''
@@ -130,8 +124,7 @@ class TaxiOOMDP(OOMDP):
             next_state = state
 
         # Make terminal.
-        if taxi_helpers.is_taxi_terminal_state(next_state):
-            next_state.set_terminal(True)
+        next_state.set_terminal(taxi_helpers.is_taxi_terminal_state(next_state))
 
         # All OOMDP states must be updated.
         next_state.update()
@@ -213,7 +206,6 @@ class TaxiOOMDP(OOMDP):
 
         # Get Agent, Walls, Passengers.
         agent = next_state.get_first_obj_of_class("agent")
-        # agent = OOMDPObject(attributes=agent_att, name="agent")
         passengers = next_state.get_objects_of_class("passenger")
 
         if agent.get_attribute("has_passenger") == 1:
